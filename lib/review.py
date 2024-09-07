@@ -20,6 +20,37 @@ class Review:
             + f"Employee: {self.employee_id}>"
         )
 
+    @property
+    def year(self):
+        return self._year
+    
+    @year.setter
+    def year(self, year):
+        if isinstance(year, int) and year >= 2000:
+            self._year = year
+        else:
+            raise ValueError("year should be an integer and greater than or equal to 2000.")
+    
+    @property
+    def summary(self):
+        return self._summary
+    
+    @summary.setter
+    def summary(self, summary):
+        if not isinstance(summary, str) or not len(summary):
+            raise ValueError("Summary must be a non-empty string")
+        self._summary = summary
+    
+    @property
+    def employee_id(self):
+        return self._employee_id
+    
+    @employee_id.setter
+    def employee_id(self, employee_id):
+        if not type(employee_id) is int or not Employee.find_by_id(employee_id):
+            raise ValueError("employee_id must reference an employee in the database")
+        self._employee_id = employee_id
+    
     @classmethod
     def create_table(cls):
         """ Create a new table to persist the attributes of Review instances """
